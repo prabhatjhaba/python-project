@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Post
 from django.shortcuts import render, get_object_or_404
-#from .forms import *
+from .form import PostForm
+from django.utils import timezone
 # Create your views here.
 #def index(request):
 
     #return HttpResponse("Hello, world. You're at the Blog index.")
 
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter().order_by('-published_date')
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 def post_detail(request, pk):
